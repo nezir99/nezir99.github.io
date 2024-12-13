@@ -1,52 +1,119 @@
-window.onload = function() {
-  const canvas = document.getElementById("nebula");
+// nebula.js
 
-  if (!canvas) {
-    console.error("Canvas element not found");
-    return;
-  }
+document.addEventListener("DOMContentLoaded", () => {
+    const canvas = document.getElementById("nebula");
 
-  // Set canvas size to full window
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+    if (!canvas) {
+        console.error("Canvas element not found");
+        return;
+    }
 
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+    );
 
-  // Create glowing nebula-like sphere
-  const geometry = new THREE.SphereGeometry(5, 64, 64);
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-  const material = new THREE.ShaderMaterial({
-    uniforms: {
-      color1: { value: new THREE.Color(0x4e44ff) },
-      color2: { value: new THREE.Color(0xff44e8) },
-      time: { value: 0.0 },
-    },
-    vertexShader: `
-      varying vec3 vNormal;
-      void main() {
-        vNormal = normal;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-      }
-    `,
-    fragmentShader: `
-      varying vec3 vNormal;
-      uniform vec3 color1;
-      uniform vec3 color2;
-      uniform float time;
+    // Create particle geometry
+    const particleCount = 5000;
+    const particles = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
 
-      void main() {
-        float intensity = sin(time + length(vNormal)) * 0.5 + 0.5;
-        vec3 color = mix(color1, color2, intensity);
-        gl_FragColor = vec4(color, 1.0);
-      }
-    `,
-  });
+    for (let i = 0; i < particleCount * 3; i++) {
+        positions[i] = (Math.random() - 0.5) * 50;
+    }
 
-  const sphere = new THREE.Mesh(geometry, material);
-  scene.add(sphere);
+    particles.setAttribute(
+        "position",
+        new THREE.BufferAttribute(positions, 3)
+    );
+
+    // Create particle material
+    const particleMaterial = new THREE.PointsMaterial({
+        color: 0x44aa88,
+        size: 0.2,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+    });
+
+    // Create particle system
+    const particleSystem = new THREE.Points(particles, particleMaterial);
+    scene.add(particleSystem);
+
+    camera.position.z = 30;
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // Rotate particle system for animation
+        particleSystem.rotation.y += 0.002;
+        particleSystem.rotation.x += 0.001;
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
   const pointLight = new THREE.PointLight(0xffffff, 1);
