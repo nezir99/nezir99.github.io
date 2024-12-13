@@ -1,39 +1,118 @@
-// Ensure the DOM is fully loaded before running the script
-document.addEventListener('DOMContentLoaded', function () {
-    // Check if the canvas element exists
-    const canvas = document.getElementById('nebula-canvas');
-    if (!canvas) {
-        console.error('Canvas element not found');
-        return;
-    }
+document.addEventListener("DOMContentLoaded", function() {
+  const canvas = document.getElementById("nebula");
 
-    // Set up the 3D scene using Three.js
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+  if (!canvas) {
+    console.error("Canvas element not found");
+    return;
+  }
 
-    // Create a nebula with particles (simplified version)
-    const geometry = new THREE.SphereGeometry(5, 32, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
-    const sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
+  // Set canvas size to full window
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-    camera.position.z = 10;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ canvas: canvas });
+  renderer.setSize(window.innerWidth, window.innerHeight);
 
-    // Animation loop
-    function animate() {
-        requestAnimationFrame(animate);
+  // Create a rotating sphere (replace with your nebula logic)
+  const geometry = new THREE.SphereGeometry(1, 32, 32);
+  const material = new THREE.MeshBasicMaterial({ color: 0x0077ff });
+  const sphere = new THREE.Mesh(geometry, material);
+  scene.add(sphere);
 
-        // Rotate the sphere to simulate nebula movement
-        sphere.rotation.x += 0.01;
-        sphere.rotation.y += 0.01;
+  // Position the camera
+  camera.position.z = 5;
 
-        renderer.render(scene, camera);
-    }
+  // Animate the scene
+  function animate() {
+    requestAnimationFrame(animate);
 
-    animate();
+    // Rotate the sphere
+    sphere.rotation.x += 0.01;
+    sphere.rotation.y += 0.01;
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
