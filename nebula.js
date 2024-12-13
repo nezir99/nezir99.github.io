@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Create particle material
     const particleMaterial = new THREE.PointsMaterial({
-        color: 0x00ff00,
+        color: 0x0055ff,
         size: 0.2,
         transparent: true,
         blending: THREE.AdditiveBlending,
