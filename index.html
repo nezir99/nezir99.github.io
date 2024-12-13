@@ -3,16 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coming Soon...</title>
+  <title>Coming Soon</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .message {
+      position: relative;
+      z-index: 10;
+      font-size: 2rem;
+      font-family: Arial, sans-serif;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+  </style>
 </head>
 <body>
-  <canvas id="nebulaCanvas" width="800" height="600"></canvas> <!-- Ensure canvas exists -->
-  <h1>Coming Soon...</h1>
-
-  <script src="three.min.js"></script>
+  <canvas id="nebula"></canvas>
+  <div class="message">Coming Soon...</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
   <script src="nebula.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
