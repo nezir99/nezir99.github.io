@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+window.onload = function() {
   const canvas = document.getElementById("nebula");
 
   if (!canvas) {
@@ -36,7 +36,46 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   animate();
-});
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
