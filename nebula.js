@@ -1,31 +1,64 @@
-const canvas = document.getElementById('nebula');
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ canvas });
+document.addEventListener("DOMContentLoaded", () => {
+    const canvas = document.getElementById('nebulaCanvas');
 
-renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.z = 5;
+    // Check if the canvas exists
+    if (!canvas) {
+        console.error("Canvas element with id 'nebulaCanvas' not found.");
+        return;
+    }
 
-// Nebula Material
-const geometry = new THREE.PlaneGeometry(10, 10);
-const loader = new THREE.TextureLoader();
-const texture = loader.load('https://images.unsplash.com/photo-1475300350006-204d9881aa3e');
-const material = new THREE.MeshBasicMaterial({ map: texture });
-const nebula = new THREE.Mesh(geometry, material);
-scene.add(nebula);
+    const renderer = new THREE.WebGLRenderer({ canvas });
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-// Animation
-function animate() {
-  requestAnimationFrame(animate);
-  nebula.material.map.offset.y += 0.002; // Subtle movement
-  renderer.render(scene, camera);
-}
-animate();
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
 
-// Adjust canvas size on resize
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+    const geometry = new THREE.SphereGeometry(1, 32, 32);
+    const material = new THREE.MeshBasicMaterial({ color: 0x0077ff, wireframe: true });
+    const sphere = new THREE.Mesh(geometry, material);
+
+    scene.add(sphere);
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        sphere.rotation.x += 0.01;
+        sphere.rotation.y += 0.01;
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
